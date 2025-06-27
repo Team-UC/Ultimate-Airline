@@ -1,6 +1,6 @@
-# SastoTicket
+# Ultimate Airline
 
-SastoTicket is a web application designed to simplify and streamline the process of booking tickets online. This project aims to provide users with a seamless experience for searching, comparing, and purchasing tickets for various events or transportation.
+Ultimate Airline is a web application designed to simplify and streamline the process of booking tickets online. This project aims to provide users with a seamless experience for searching, comparing, and purchasing tickets for various events or transportation.
 
 ## Features
 
@@ -22,13 +22,13 @@ SastoTicket is a web application designed to simplify and streamline the process
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/sastoTicket.git
+git clone https://github.com/yourusername/Ultimate-Airline.git
 ```
 
 2. Install dependencies:
 
 ```bash
-cd sastoTicket
+cd Ultimate-Airline
 npm install
 ```
 
