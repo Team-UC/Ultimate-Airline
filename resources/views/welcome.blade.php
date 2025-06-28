@@ -15,7 +15,7 @@ https://www.tooplate.com/view/2095-level
 -->
     <!-- load stylesheets -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">  <!-- Google web font "Open Sans" -->
-    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">                <!-- Font Awesome -->
+    <link rel="stylesheet" href="public/font-awesome-4.7.0/css/font-awesome.min.css">                <!-- Font Awesome -->
     <link rel="stylesheet" href="public/css/bootstrap.min.css">                                      <!-- Bootstrap style -->
     <link rel="stylesheet" type="text/css" href="public/slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="public/slick/slick-theme.css"/>
@@ -40,7 +40,7 @@ https://www.tooplate.com/view/2095-level
                         
                         <nav class="navbar navbar-expand-lg narbar-light">
                             <a class="navbar-brand mr-auto" href="#">
-                                <img src="img/logo.png" alt="Site logo">
+                                <img src="public/img/logo.png" alt="Site logo">
                                 Sasto Tickets
                             </a>
                             <button type="button" id="nav-toggle" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
