@@ -41,7 +41,7 @@ https://www.tooplate.com/view/2095-level
                         
                         <nav class="navbar navbar-expand-lg narbar-light">
                             <a class="navbar-brand mr-auto" href="#">
-                                <img src="public/img/logo.png" alt="Site logo">
+                                <img src="img/logo.png" alt="Site logo">
                                 Sasto Tickets
                             </a>
                             <button type="button" id="nav-toggle" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,11 +77,11 @@ https://www.tooplate.com/view/2095-level
                                     <div class="form-row tm-search-form-row">
                                         <div class="form-group tm-form-element tm-form-element-100">
                                             <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
-                                            <input required name="origin" type="text" class="form-control" id="inputCity" placeholder="Enter Origin...">
+                                            <input value="KTM"required name="origin" type="text" class="form-control" id="inputCity" placeholder="Enter Origin...">
                                         </div>
                                          <div class="form-group tm-form-element tm-form-element-100">
                                             <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
-                                            <input required name="destination" type="text" class="form-control" id="inputCity" placeholder="Enter Destination...">
+                                            <input value="IXB" required name="destination" type="text" class="form-control" id="inputCity" placeholder="Enter Destination...">
                                         </div>
                                         <div class="form-group tm-form-element tm-form-element-50">
                                             <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
@@ -198,7 +198,10 @@ https://www.tooplate.com/view/2095-level
             <div class="tm-section tm-section-pad tm-bg-gray" id="tm-section-4">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                    <div id="responseMessage"></div>
+                    <div id="flightResults"></div>
+
+                        <!-- <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
                             <div class="tm-article-carousel">                            
                                 <article class="tm-bg-white mr-2 tm-carousel-item">
                                     <img src="img/img-01.jpg" alt="Image" class="img-fluid">
@@ -284,7 +287,7 @@ https://www.tooplate.com/view/2095-level
                                     </a>
                                 </div>
                             </div>                            
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -394,7 +397,40 @@ https://www.tooplate.com/view/2095-level
                     success: function (response) {
                         $('#responseMessage').html('<div class="alert alert-success">Flights found!</div>');
                         console.log(response);
-                    },
+                        const flights = response.data || [];
+                    let html = '';
+
+                    if (flights.length === 0) {
+                        html = '<div class="alert alert-warning">No flights available.</div>';
+                    } else {
+                        flights.forEach((flight, i) => {
+                            const segments = flight.itineraries[0].segments;
+                            const dep = segments[0].departure;
+                            const arr = segments[segments.length - 1].arrival;
+const eurToNpr = 145; // example fixed conversion rate
+const priceNpr = (parseFloat(flight.price.total) * eurToNpr).toFixed(2);
+
+                            html += `
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${dep.iataCode} ➜ ${arr.iataCode}</h5>
+                                        <p class="card-text">
+                                            <strong>Airline:</strong> ${flight.validatingAirlineCodes[0]}<br>
+                                            <strong>Departure:</strong> ${new Date(dep.at).toLocaleString()}<br>
+                                            <strong>Arrival:</strong> ${new Date(arr.at).toLocaleString()}<br>
+                                            <strong>Duration:</strong> ${flight.itineraries[0].duration.replace('PT','')}<br>
+                                            <strong>Price:</strong> ${flight.price.currency} ${flight.price.total} NPR ${priceNpr}
+                                        </p>
+                                        <a href="#" class="btn btn-primary">Book Now</a>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    }
+
+                    $('#flightResults').html(html); // Display inside this container
+                },
+                    // },
                     error: function (xhr) {
                         $('#responseMessage').html('<div class="alert alert-danger">Something went wrong.</div>');
                     }
