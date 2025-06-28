@@ -21,6 +21,7 @@ https://www.tooplate.com/view/2095-level
     <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
     <link rel="stylesheet" type="text/css" href="css/datepicker.css"/>
     <link rel="stylesheet" href="css/tooplate-style.css">                                   <!-- Templatemo style -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -71,24 +72,25 @@ https://www.tooplate.com/view/2095-level
                     <div class="container ie-h-align-center-fix">
                         <div class="row">
                             <div class="col-xs-12 ml-auto mr-auto ie-container-width-fix">
-                                <form action="index.html" method="get" class="tm-search-form tm-section-pad-2">
+                                <!-- <form action="index.html" method="get" class="tm-search-form tm-section-pad-2"> -->
+                                    <form id="flightForm" action="#" method="get" class="tm-search-form tm-section-pad-2">
                                     <div class="form-row tm-search-form-row">
                                         <div class="form-group tm-form-element tm-form-element-100">
                                             <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
-                                            <input name="origin" type="text" class="form-control" id="inputCity" placeholder="Enter Origin...">
+                                            <input required name="origin" type="text" class="form-control" id="inputCity" placeholder="Enter Origin...">
                                         </div>
                                          <div class="form-group tm-form-element tm-form-element-100">
                                             <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
-                                            <input name="destination" type="text" class="form-control" id="inputCity" placeholder="Enter Destination...">
+                                            <input required name="destination" type="text" class="form-control" id="inputCity" placeholder="Enter Destination...">
                                         </div>
                                         <div class="form-group tm-form-element tm-form-element-50">
                                             <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                            <input name="departure-date" type="date" class="form-control" id="inputCheckOut" placeholder="Departure Date">
+                                            <input required name="departure-date" type="date" class="form-control" id="inputCheckOut" placeholder="Departure Date">
                                         </div>
                                     </div>
                                     <div class="form-row tm-search-form-row">
                                         <div class="form-group tm-form-element tm-form-element-2">                                            
-                                            <select name="adult" class="form-control tm-select" id="adult">
+                                            <select required name="adult" class="form-control tm-select" id="adult">
                                                 <option value="">Adult</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
@@ -104,7 +106,7 @@ https://www.tooplate.com/view/2095-level
                                             <i class="fa fa-2x fa-user tm-form-element-icon"></i>
                                         </div>
                                         <div class="form-group tm-form-element tm-form-element-2">                                            
-                                            <select name="children" class="form-control tm-select" id="children">
+                                            <select required name="children" class="form-control tm-select" id="children">
                                                 <option value="">Children</option>
                                                 <option value="0">0</option>
                                                 <option value="1">1</option>
@@ -144,6 +146,8 @@ https://www.tooplate.com/view/2095-level
                                           <p class="tm-margin-b-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                                           <a href="#" class="ie-10-ml-auto ml-auto mt-1 tm-font-semibold tm-color-primary">Need Help?</a>
                                       </div>
+                                      <div id="responseMessage" class="mt-3"></div>
+
                                 </form>
                             </div>                        
                         </div>      
@@ -376,7 +380,28 @@ https://www.tooplate.com/view/2095-level
                 </div>                
             </footer>
         </div>
-        
+                <script>
+        $(document).ready(function () {
+            $('#flightForm').on('submit', function (e) {
+                e.preventDefault();
+
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    url: '{{ route("check.flights") }}', // use a named route or URL
+                    method: 'GET',
+                    data: formData,
+                    success: function (response) {
+                        $('#responseMessage').html('<div class="alert alert-success">Flights found!</div>');
+                        console.log(response);
+                    },
+                    error: function (xhr) {
+                        $('#responseMessage').html('<div class="alert alert-danger">Something went wrong.</div>');
+                    }
+                });
+            });
+        });
+        </script>
         <!-- load JS files -->
         <script src="js/jquery-1.11.3.min.js"></script>             <!-- jQuery (https://jquery.com/download/) -->
         <script src="js/popper.min.js"></script>                    <!-- https://popper.js.org/ -->       
@@ -521,6 +546,7 @@ https://www.tooplate.com/view/2095-level
             });
 
         </script>             
+
 
 </body>
 </html>
