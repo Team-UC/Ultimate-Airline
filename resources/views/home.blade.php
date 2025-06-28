@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Sasto Tickets</title>
+    <title>Sasta Tickets</title>
 <!--
 
 Tooplate 2095 Level
@@ -42,7 +42,7 @@ https://www.tooplate.com/view/2095-level
                         <nav class="navbar navbar-expand-lg narbar-light">
                             <a class="navbar-brand mr-auto" href="#">
                                 <img src="img/logo.png" alt="Site logo">
-                                Sasto Tickets
+                                Sasta Tickets
                             </a>
                             <button type="button" id="nav-toggle" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
@@ -407,23 +407,62 @@ https://www.tooplate.com/view/2095-level
                             const segments = flight.itineraries[0].segments;
                             const dep = segments[0].departure;
                             const arr = segments[segments.length - 1].arrival;
-const eurToNpr = 145; // example fixed conversion rate
-const priceNpr = (parseFloat(flight.price.total) * eurToNpr).toFixed(2);
+                            const eurToNpr = 145; // example fixed conversion rate
+                            const priceNpr = (parseFloat(flight.price.total) * eurToNpr).toFixed(2);
+                            const message = `
+                                ✈️ *Flight Offer*
+                                Airline: ${flight.validatingAirlineCodes[0]}
+                                Departure: ${new Date(dep.at).toLocaleString()}
+                                Arrival: ${new Date(arr.at).toLocaleString()}
+                                Duration: ${flight.itineraries[0].duration.replace('PT','')}
+                                Price: ${flight.price.currency} ${flight.price.total} (Approx. NPR ${priceNpr})
+
+                                Reply to confirm booking.
+                                `;
 
                             html += `
-                                <div class="card mb-3">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${dep.iataCode} ➜ ${arr.iataCode}</h5>
-                                        <p class="card-text">
-                                            <strong>Airline:</strong> ${flight.validatingAirlineCodes[0]}<br>
-                                            <strong>Departure:</strong> ${new Date(dep.at).toLocaleString()}<br>
-                                            <strong>Arrival:</strong> ${new Date(arr.at).toLocaleString()}<br>
-                                            <strong>Duration:</strong> ${flight.itineraries[0].duration.replace('PT','')}<br>
-                                            <strong>Price:</strong> ${flight.price.currency} ${flight.price.total} NPR ${priceNpr}
-                                        </p>
-                                        <a href="#" class="btn btn-primary">Book Now</a>
+                               <div class="card mb-3 shadow-sm border-start border-danger border-3 p-3">
+                                <div class="row align-items-center text-center text-md-start">
+
+                                    <!-- Airline logo and name -->
+                                    <div class="col-md-2 mb-2 mb-md-0 d-flex flex-column align-items-center">
+                                    <img src="https://s1.apideeplink.com/images/airlines/${flight.validatingAirlineCodes[0]}.png" alt="Airline Logo" style="max-height: 40px;">
+                                    <div class="fw-semibold mt-2">${flight.validatingAirlineCodes[0]}</div>
                                     </div>
+
+                                    <!-- Flight info -->
+                                    <div class="col-md-6">
+                                    <div class="d-flex flex-column flex-md-row justify-content-around align-items-center gap-3">
+                                        <div>
+                                        <div class="fw-bold fs-5">${new Date(dep.at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                                        <div>${dep.city || 'Departure'} (${dep.iataCode})</div>
+                                        <div class="text-muted small">${new Date(dep.at).toLocaleDateString()}</div>
+                                        </div>
+                                        <div class="text-center">
+                                        <div class="fw-medium">${flight.itineraries[0].duration.replace('PT','').replace('H',' Hr ').replace('M',' Min')}</div>
+                                        <div class="text-danger mt-1">
+                                            <i class="bi bi-person-walking"></i> 5 Kg &nbsp;
+                                            <i class="bi bi-suitcase"></i> 15 Kg
+                                        </div>
+                                        </div>
+                                        <div>
+                                        <div class="fw-bold fs-5">${new Date(arr.at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                                        <div>${arr.city || 'Arrival'} (${arr.iataCode})</div>
+                                        <div class="text-muted small">${new Date(arr.at).toLocaleDateString()}</div>
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                    <!-- Price and CTA -->
+                                    <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                    <div class="text-danger fw-bold fs-5">NPR ${priceNpr}</div>
+                                    <a href="#" class="btn btn-primary btn-sm mt-1">Book Now</a>
+                                    <a href="https://wa.me/9330795119?text=${encodeURIComponent(message)}" class="btn btn-success btn-sm mt-1" target="_blank">Book on WhatsApp</a>
+                                    </div>
+
                                 </div>
+                                </div>
+
                             `;
                         });
                     }
