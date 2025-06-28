@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Level HTML Template by Tooplate</title>
+    <title>Sasto Tickets</title>
 <!--
 
 Tooplate 2095 Level
@@ -369,9 +369,9 @@ https://www.tooplate.com/view/2095-level
                 <div class="container">
                     <div class="row">
                         <p class="col-sm-12 text-center tm-font-light tm-color-white p-4 tm-margin-b-0">
-                        Copyright &copy; <span class="tm-current-year">2018</span> Your Company
+                        Copyright &copy; <span class="tm-current-year">2025</span> Sasto Tickets
                         
-                        - Design: <a rel="nofollow" href="https://www.tooplate.com" class="tm-color-primary tm-font-normal" target="_parent">Tooplate</a></p>        
+                        - Design: <a rel="nofollow" href="https://ultimatecoder.in/" class="tm-color-primary tm-font-normal" target="_parent">Ultimate Coder</a></p>        
                     </div>
                 </div>                
             </footer>
