@@ -15,7 +15,7 @@ https://www.tooplate.com/view/2095-level
 -->
     <!-- load stylesheets -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">  <!-- Google web font "Open Sans" -->
-    <link rel="stylesheet" href="public/font-awesome-4.7.0/css/font-awesome.min.css">                <!-- Font Awesome -->
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">                <!-- Font Awesome -->
     <link rel="stylesheet" href="public/css/bootstrap.min.css">                                      <!-- Bootstrap style -->
     <link rel="stylesheet" type="text/css" href="public/slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="public/slick/slick-theme.css"/>
@@ -75,15 +75,15 @@ https://www.tooplate.com/view/2095-level
                                     <div class="form-row tm-search-form-row">
                                         <div class="form-group tm-form-element tm-form-element-100">
                                             <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
-                                            <input name="city" type="text" class="form-control" id="inputCity" placeholder="Type your destination...">
+                                            <input name="origin" type="text" class="form-control" id="inputCity" placeholder="Enter Origin...">
+                                        </div>
+                                         <div class="form-group tm-form-element tm-form-element-100">
+                                            <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
+                                            <input name="destination" type="text" class="form-control" id="inputCity" placeholder="Enter Destination...">
                                         </div>
                                         <div class="form-group tm-form-element tm-form-element-50">
                                             <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                            <input name="check-in" type="text" class="form-control" id="inputCheckIn" placeholder="Check In">
-                                        </div>
-                                        <div class="form-group tm-form-element tm-form-element-50">
-                                            <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                            <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Check Out">
+                                            <input name="departure-date" type="text" class="form-control" id="inputCheckOut" placeholder="Departure Date">
                                         </div>
                                     </div>
                                     <div class="form-row tm-search-form-row">
@@ -120,7 +120,7 @@ https://www.tooplate.com/view/2095-level
                                             </select>
                                             <i class="fa fa-user tm-form-element-icon tm-form-element-icon-small"></i>
                                         </div>
-                                        <div class="form-group tm-form-element tm-form-element-2">
+                                        <!-- <div class="form-group tm-form-element tm-form-element-2">
                                             <select name="room" class="form-control tm-select" id="room">
                                                 <option value="">Room</option>
                                                 <option value="1">1</option>
@@ -135,7 +135,7 @@ https://www.tooplate.com/view/2095-level
                                                 <option value="10">10</option>
                                             </select>
                                             <i class="fa fa-2x fa-bed tm-form-element-icon"></i>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group tm-form-element tm-form-element-2">
                                             <button type="submit" class="btn btn-primary tm-btn-search">Check Availability</button>
                                         </div>
