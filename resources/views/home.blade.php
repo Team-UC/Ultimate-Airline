@@ -6,6 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Sasta Tickets</title>
+<style>
+    #cityResults {
+        max-height: 300px;
+        overflow-y: auto;
+        z-index: 1050;
+    }
+
+    .city-result-item {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        cursor: pointer;
+    }
+
+    .city-result-item:hover {
+        background-color: #f8f9fa;
+    }
+
+    .city-name {
+        font-weight: bold;
+    }
+
+    .iata-code {
+        float: right;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .airport-name {
+        font-size: 0.9em;
+        color: #777;
+        margin-top: 2px;
+    }
+
+    .clearfix::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
+
 <!--
 
 Tooplate 2095 Level
@@ -77,16 +117,98 @@ https://www.tooplate.com/view/2095-level
                                     <div class="form-row tm-search-form-row">
                                         <div class="form-group tm-form-element tm-form-element-100">
                                             <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
-                                            <input value="KTM"required name="origin" type="text" class="form-control" id="inputCity" placeholder="Enter Origin...">
+                                             <input value="" required name="origin" type="text" class="form-control" id="inputCity1" placeholder="Enter Origin...">
+                                             <div id="cityResults" class="dropdown-menu show w-100" style="display: none;"></div>
+                                             <!-- <input type="hidden" name="inputCity1_code" id="inputCity1_code" value="KTM"> -->
+
                                         </div>
+                                        
                                          <div class="form-group tm-form-element tm-form-element-100">
                                             <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
-                                            <input value="IXB" required name="destination" type="text" class="form-control" id="inputCity" placeholder="Enter Destination...">
+                                           <input value="" required name="destination" type="text" class="form-control" id="inputCity2" placeholder="Enter Destination...">
+                                             <div id="cityResults" class="dropdown-menu show w-100" style="display: none;"></div>
+                                              <!-- <input type="hidden" name="inputCity2_code" id="inputCity2_code" value="KTM"> -->
                                         </div>
+                                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+                                        <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+                                        <script>
+                                            setupCityAutocomplete('inputCity1');
+                                            setupCityAutocomplete('inputCity2');
+                                            function setupCityAutocomplete(inputId) {
+                                                const $input = $('#' + inputId);
+                                                const $results = $('<div class="dropdown-menu show w-100 city-results" style="display: none; position: absolute; z-index: 1050;"></div>')
+                                                    .insertAfter($input)
+                                                    .attr('id', inputId + '_results');
+
+                                                let currentRequest = null; // Store the last AJAX request
+
+                                                $input.on('input', function () {
+                                                    const query = $input.val();
+                                                    if (query.length < 2) {
+                                                        $results.hide();
+                                                        return;
+                                                    }
+
+                                                    // Abort previous request if still ongoing
+                                                    if (currentRequest) {
+                                                        currentRequest.abort();
+                                                    }
+
+                                                    currentRequest = $.ajax({
+                                                        url: '/autocomplete/cities',
+                                                        data: { q: query },
+                                                        success: function (data) {
+                                                            if (data.length === 0) {
+                                                                $results.hide();
+                                                                return;
+                                                            }
+
+                                                            let html = '';
+                                                            data.forEach(item => {
+                                                                html += `
+                                                                    <div class="city-result-item clearfix p-2" data-label="${item.city}, ${item.country} – ${item.airport} (${item.value})">
+                                                                        <div class="city-name">${item.city}, ${item.country}<span class="iata-code float-end">${item.value}</span></div>
+                                                                        <div class="airport-name text-muted">${item.airport}</div>
+                                                                    </div>
+                                                                `;
+                                                            });
+
+                                                            $results.html(html).show();
+                                                        },
+                                                        error: function (xhr, status) {
+                                                            if (status !== 'abort') {
+                                                                console.error('City autocomplete failed:', status);
+                                                            }
+                                                        }
+                                                    });
+                                                });
+
+                                                // On select
+                                                $(document).on('click', '#' + inputId + '_results .city-result-item', function () {
+                                                    const selectedLabel = $(this).data('label');
+                                                    $input.val(selectedLabel);
+                                                    $results.hide();
+                                                });
+
+                                                $input.on('blur', function () {
+                                                    setTimeout(() => $results.hide(), 200);
+                                                });
+                                            }
+
+                                        </script>
+
+
+
                                         <div class="form-group tm-form-element tm-form-element-50">
                                             <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
                                             <input required name="departure-date" type="date" class="form-control" id="inputCheckOut" placeholder="Departure Date">
                                         </div>
+                                        <script>
+                                            const today = new Date().toISOString().split('T')[0];
+                                            document.getElementById("inputCheckOut").setAttribute("min", today);
+                                        </script>
                                     </div>
                                     <div class="form-row tm-search-form-row">
                                         <div class="form-group tm-form-element tm-form-element-2">                                            
@@ -378,7 +500,7 @@ https://www.tooplate.com/view/2095-level
                         <p class="col-sm-12 text-center tm-font-light tm-color-white p-4 tm-margin-b-0">
                         Copyright &copy; <span class="tm-current-year">2025</span> Sasto Tickets
                         
-                        - Design: <a rel="nofollow" href="https://ultimatecoder.in/" class="tm-color-primary tm-font-normal" target="_parent">Ultimate Coder</a></p>        
+                        - Powered by: <a rel="nofollow" href="https://ultimatecoder.in/" class="tm-color-primary tm-font-normal" target="_parent">Ultimate Coder</a></p>        
                     </div>
                 </div>                
             </footer>
@@ -421,7 +543,7 @@ https://www.tooplate.com/view/2095-level
                                 `;
 
                             html += `
-                               <div class="card mb-3 shadow-sm border-start border-danger border-3 p-3">
+                               <div class="card mb-3 shadow-sm border-start border-danger border-3 p-3 w-100">
                                 <div class="row align-items-center text-center text-md-start">
 
                                     <!-- Airline logo and name -->
