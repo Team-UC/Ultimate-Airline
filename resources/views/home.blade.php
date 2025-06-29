@@ -579,7 +579,7 @@ https://www.tooplate.com/view/2095-level
                                     <div class="col-md-4 text-md-end mt-3 mt-md-0">
                                     <div class="text-danger fw-bold fs-5">NPR ${priceNpr}</div>
                                     <a href="#" class="btn btn-primary btn-sm mt-1">Book Now</a>
-                                    <a href="https://wa.me/9330795119?text=${encodeURIComponent(message)}" class="btn btn-success btn-sm mt-1" target="_blank">Book on WhatsApp</a>
+                                    <a href="https://wa.me/+9779808041246?text=${encodeURIComponent(message)}" class="btn btn-success btn-sm mt-1" target="_blank">Book on WhatsApp</a>
                                     </div>
 
                                 </div>
