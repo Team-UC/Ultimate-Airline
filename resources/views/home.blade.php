@@ -7,6 +7,12 @@
 
     <title>Sasta Tickets</title>
 <style>
+    .site-name {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #333;
+        margin-left: 10px;
+    }
     #cityResults {
         max-height: 300px;
         overflow-y: auto;
@@ -48,6 +54,80 @@
     #loadingModal {
         z-index: 1200 !important; /* Ensure it appears above other content */
     }
+
+    .tm-bg-video {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+}
+
+.tm-bg-video video.tmVideo {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
+
+.tm-bg-video .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.tm-bg-video .overlay i {
+    margin: 0 10px;
+    color: white;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.tm-bg-video .overlay i:hover {
+    opacity: 1;
+}
+
+/* Responsive spacing and layout for content inside video section */
+@media (max-width: 768px) {
+    .navbar-title{
+        font-size: 0.5em;
+    }
+    .tm-media-container {
+        padding: 1rem;
+    }
+
+    .tm-media-title-container {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .tm-media-1 {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .tm-media-1 img {
+        width: 100%;
+        height: auto;
+        margin-bottom: 1rem;
+    }
+
+    .tm-media-body-1 {
+        text-align: left;
+    }
+
+    .tm-bg-video .overlay i {
+        font-size: 3rem;
+    }
+}
 </style>
 
 <!--
@@ -84,29 +164,32 @@ https://www.tooplate.com/view/2095-level
                     <div class="row">
                         
                         <nav class="navbar navbar-expand-lg narbar-light">
-                            <a class="navbar-brand mr-auto" href="#">
-                                <img src="img/logo.png" alt="Site logo">
-                                Sasta Tickets
-                            </a>
-                            <button type="button" id="nav-toggle" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div id="mainNav" class="collapse navbar-collapse tm-bg-white">
-                                <ul class="navbar-nav ml-auto">
-                                  <li class="nav-item">
-                                    <a class="nav-link" href="#top">Home <span class="sr-only">(current)</span></a>
-                                  </li>
-                                  <li class="nav-item">
-                                    <a class="nav-link" href="#tm-section-4">Portfolio</a>
-                                  </li>
-                                  <li class="nav-item">
-                                    <a class="nav-link" href="#tm-section-5">Blog Entries</a>
-                                  </li>
-                                  <li class="nav-item">
-                                    <a class="nav-link" href="#tm-section-6">Contact Us</a>
-                                  </li>
-                                </ul>
-                            </div>                            
+                            <div class="container">
+
+                                <a class="navbar-brand d-flex align-items-center" href="#">
+                                    <img src="img/logo.png" alt="Site logo" style="height: 25px;" class="mr-1">
+                                    <span class="navbar-title">Sasta Tickets</span>
+                                </a>
+                                <button type="button" id="nav-toggle" class="navbar-toggler" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div id="mainNav" class="collapse navbar-collapse tm-bg-white">
+                                    <ul class="navbar-nav ml-auto">
+                                      <li class="nav-item">
+                                        <a class="nav-link" href="#top">Home <span class="sr-only">(current)</span></a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a class="nav-link" href="#tm-section-4">Portfolio</a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a class="nav-link" href="#tm-section-5">Blog Entries</a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a class="nav-link" href="#tm-section-6">Contact Us</a>
+                                      </li>
+                                    </ul>
+                                </div>                            
+                            </div>
                         </nav>            
                     </div>
                 </div>
