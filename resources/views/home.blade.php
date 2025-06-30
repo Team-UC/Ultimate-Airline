@@ -44,6 +44,10 @@
         display: table;
         clear: both;
     }
+
+    #loadingModal {
+        z-index: 1200 !important; /* Ensure it appears above other content */
+    }
 </style>
 
 <!--
@@ -271,12 +275,32 @@ https://www.tooplate.com/view/2095-level
                                       <div id="responseMessage" class="mt-3"></div>
 
                                 </form>
+
+                        
+
                             </div>                        
                         </div>      
                     </div>
                 </div>                  
             </div>
-            
+             <!-- Bootstrap Loading Modal -->
+<div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-body">
+        <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 5rem;">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <h5 class="modal-title mb-2">Searching for best airfares</h5>
+        <img src="img/loadingAnimation.gif" alt="Loading Animation" class="img-fluid mb-3" style="max-width: 100px;">
+         <div class="mb-2 small" id="searchDetails">
+          <!-- Dynamic search info goes here -->
+        </div>
+        <p>Please wait while we fetch your results...</p>
+      </div>
+    </div>
+  </div>
+</div>
             <div class="tm-section-2">
                 <div class="container">
                     <div class="row">
@@ -507,8 +531,31 @@ https://www.tooplate.com/view/2095-level
         </div>
                 <script>
         $(document).ready(function () {
+             const loadingModalEl = document.getElementById('loadingModal');
+    const loadingModal = new bootstrap.Modal(loadingModalEl, {
+        backdrop: 'static',
+        keyboard: false
+    });
             $('#flightForm').on('submit', function (e) {
                 e.preventDefault();
+
+                 const origin = $('#inputCity1').val();
+        const destination = $('#inputCity2').val();
+        const date = $('#inputCheckOut').val();
+        const adult = $('#adult').val();
+        const children = $('#children').val();
+
+        // Update modal content
+        $('#searchDetails').html(`
+          <div class="text-black">
+            <strong>From:</strong> ${origin} <br>
+            <strong>To:</strong> ${destination} <br>
+            <strong>Adults:</strong> ${adult}, <strong>Children:</strong> ${children} <br>
+            <strong>Departure:</strong> ${date}
+          </div>
+        `);
+                loadingModal.show(); // Show loading modal
+
 
                 var formData = $(this).serialize();
 
@@ -590,10 +637,14 @@ https://www.tooplate.com/view/2095-level
                     }
 
                     $('#flightResults').html(html); // Display inside this container
+
+                    loadingModal.hide(); // Hide loading modal after processing
                 },
                     // },
                     error: function (xhr) {
                         $('#responseMessage').html('<div class="alert alert-danger">Something went wrong.</div>');
+
+                        loadingModal.hide(); // Hide loading modal on error
                     }
                 });
             });
