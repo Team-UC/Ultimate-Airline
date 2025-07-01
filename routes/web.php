@@ -6,12 +6,19 @@ use App\Http\Controllers\FlightController;
 Route::get('/', function () {
       return view('home');
 });
+
 Route::get('/about', function () {
       return view('about');
 });
 
-Route::get('/check-flights', [FlightController::class, 'check'])->name('check.flights');
-Route::get('/autocomplete/cities', [FlightController::class, 'search']);
 Route::get('/contact', function () {
     return view('contact');
 });
+
+Route::get('/privacy-policy', function () {
+    return view('privacy-policy');
+});
+
+Route::get('/check-flights', [FlightController::class, 'check'])->name('check.flights');
+Route::get('/autocomplete/cities', [FlightController::class, 'search']);
+
