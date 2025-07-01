@@ -12,3 +12,6 @@ Route::get('/about', function () {
 
 Route::get('/check-flights', [FlightController::class, 'check'])->name('check.flights');
 Route::get('/autocomplete/cities', [FlightController::class, 'search']);
+Route::get('/contact', function () {
+    return view('contact');
+});
