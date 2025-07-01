@@ -31,10 +31,10 @@
                         </button>
                         <div id="mainNav" class="collapse navbar-collapse tm-bg-white">
                             <ul class="navbar-nav ml-auto">
-                                <li class="nav-item"><a class="nav-link" href="#top">Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{url('/')}}">Home</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#tm-section-4">Portfolio</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#tm-section-5">Blog Entries</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#tm-section-6">Contact Us</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{url('/contact')}}">Contact Us</a></li>
                             </ul>
                         </div>                            
                     </nav>            
