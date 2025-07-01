@@ -7,6 +7,12 @@
 
     <title>Sasta Tickets</title>
 <style>
+    .site-name {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #333;
+        margin-left: 10px;
+    }
     #cityResults {
         max-height: 300px;
         overflow-y: auto;
@@ -44,6 +50,84 @@
         display: table;
         clear: both;
     }
+
+    #loadingModal {
+        z-index: 1200 !important; /* Ensure it appears above other content */
+    }
+
+    .tm-bg-video {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+}
+
+.tm-bg-video video.tmVideo {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
+
+.tm-bg-video .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.tm-bg-video .overlay i {
+    margin: 0 10px;
+    color: white;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.tm-bg-video .overlay i:hover {
+    opacity: 1;
+}
+
+/* Responsive spacing and layout for content inside video section */
+@media (max-width: 768px) {
+    .navbar-title{
+        font-size: 0.5em;
+    }
+    .tm-media-container {
+        padding: 1rem;
+    }
+
+    .tm-media-title-container {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .tm-media-1 {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .tm-media-1 img {
+        width: 100%;
+        height: auto;
+        margin-bottom: 1rem;
+    }
+
+    .tm-media-body-1 {
+        text-align: left;
+    }
+
+    .tm-bg-video .overlay i {
+        font-size: 3rem;
+    }
+}
 </style>
 
 <!--
@@ -219,12 +303,32 @@ https://www.tooplate.com/view/2095-level
                                       <div id="responseMessage" class="mt-3"></div>
 
                                 </form>
+
+                        
+
                             </div>                        
                         </div>      
                     </div>
                 </div>                  
             </div>
-            
+             <!-- Bootstrap Loading Modal -->
+<div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-body">
+        <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 5rem;">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <h5 class="modal-title mb-2">Searching for best airfares</h5>
+        <img src="img/loadingAnimation.gif" alt="Loading Animation" class="img-fluid mb-3" style="max-width: 100px;">
+         <div class="mb-2 small" id="searchDetails">
+          <!-- Dynamic search info goes here -->
+        </div>
+        <p>Please wait while we fetch your results...</p>
+      </div>
+    </div>
+  </div>
+</div>
             <div class="tm-section-2">
                 <div class="container">
                     <div class="row">
@@ -447,8 +551,31 @@ https://www.tooplate.com/view/2095-level
         </div>
                 <script>
         $(document).ready(function () {
+             const loadingModalEl = document.getElementById('loadingModal');
+    const loadingModal = new bootstrap.Modal(loadingModalEl, {
+        backdrop: 'static',
+        keyboard: false
+    });
             $('#flightForm').on('submit', function (e) {
                 e.preventDefault();
+
+                 const origin = $('#inputCity1').val();
+        const destination = $('#inputCity2').val();
+        const date = $('#inputCheckOut').val();
+        const adult = $('#adult').val();
+        const children = $('#children').val();
+
+        // Update modal content
+        $('#searchDetails').html(`
+          <div class="text-black">
+            <strong>From:</strong> ${origin} <br>
+            <strong>To:</strong> ${destination} <br>
+            <strong>Adults:</strong> ${adult}, <strong>Children:</strong> ${children} <br>
+            <strong>Departure:</strong> ${date}
+          </div>
+        `);
+                loadingModal.show(); // Show loading modal
+
 
                 var formData = $(this).serialize();
 
@@ -530,10 +657,14 @@ https://www.tooplate.com/view/2095-level
                     }
 
                     $('#flightResults').html(html); // Display inside this container
+
+                    loadingModal.hide(); // Hide loading modal after processing
                 },
                     // },
                     error: function (xhr) {
                         $('#responseMessage').html('<div class="alert alert-danger">Something went wrong.</div>');
+
+                        loadingModal.hide(); // Hide loading modal on error
                     }
                 });
             });
