@@ -4,7 +4,9 @@
 
     <body>
         <header>
+            <title>Sasta Tickets- Contact Us</title>
             <h1>Contact Us</h1>
+
         </header>
         
                     <div class="tm-section tm-section-pad tm-bg-img tm-position-relative" id="tm-section-6">
