@@ -4,7 +4,7 @@
 
     <body>
         <header>
-            <title>Sasta Ticket- Contact Us</title>
+            <title>Sasta Tickets- Contact Us</title>
             <h1>Contact Us</h1>
 
         </header>
