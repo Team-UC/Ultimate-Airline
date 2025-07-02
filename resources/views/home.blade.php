@@ -94,6 +94,76 @@
 .tm-bg-video .overlay i:hover {
     opacity: 1;
 }
+/*floating chat button styling*/
+.chat-container {
+    position: fixed;
+    bottom: 30px;
+    right: 38px;
+    z-index: 9999;
+}
+
+.chat-button {
+    position: relative;
+    left: 5px;
+    background:linear-gradient(45deg,#dcb909,#bc5f70,#1b31a0);
+    color: white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.chat-icons {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.chat-icons.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.icon.whatsapp {
+    background-color: #25d366;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/733/733585.png');
+}
+
+.icon.x {
+    background-color: #fafafa;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/5968/5968830.png');
+}
+
+.icon.facebook {
+    background-color: #0084ff;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/1384/1384005.png');
+}
+
+.icon.instagram {
+    background-color: #bc5f70;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/2111/2111463.png');
+}
 
 /* Responsive spacing and layout for content inside video section */
 @media (max-width: 768px) {
@@ -329,6 +399,19 @@ https://www.tooplate.com/view/2095-level
     </div>
   </div>
 </div>
+
+{{-- toggling chat Menu --}}
+<div class="chat-container">
+    <div class="chat-button" onclick="toggleChatMenu()">Chat Here !</div>
+    <div class="chat-icons" id="chatIcons">
+        {{-- will be replaced to relavant links once reviewed --}}
+        <a href="#" class="icon whatsapp" title="WhatsApp"></a> 
+        <a href="#" class="icon x" title="X.com"></a>
+        <a href="#" class="icon facebook" title="Facebook"></a>
+        <a href="#" class="icon instagram" title="Instagram"></a>
+    </div>
+</div>
+
             <div class="tm-section-2">
                 <div class="container">
                     <div class="row">
@@ -669,6 +752,20 @@ https://www.tooplate.com/view/2095-level
                 });
             });
         });
+
+        //function for toggling chat menu
+        function toggleChatMenu() {
+        document.getElementById('chatIcons').classList.toggle('show');
+      
+}
+const a = document.querySelector('.chat-button');
+
+  a.addEventListener('mouseover', () => {
+    a.textContent = 'Click';
+  });
+  a.addEventListener('mouseout', () => {
+    a.textContent = 'Chat';
+  });
         </script>
         <!-- load JS files -->
         <script src="js/jquery-1.11.3.min.js"></script>             <!-- jQuery (https://jquery.com/download/) -->
