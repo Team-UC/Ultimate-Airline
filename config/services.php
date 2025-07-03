@@ -35,4 +35,5 @@ return [
         ],
     ],
 
+    'restapi_url' => env('RESTAPI_URL'),
 ];

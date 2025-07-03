@@ -23,6 +23,5 @@ Route::get('/privacy-policy', function () {
 });
 
 
-Route::get('/check-flights', [FlightController::class, 'check'])->name('check.flights');
-Route::get('/autocomplete/cities', [FlightController::class, 'search']);
+
 
