@@ -259,7 +259,8 @@ https://www.tooplate.com/view/2095-level
                                                     }
 
                                                     currentRequest = $.ajax({
-                                                        url: '/autocomplete/cities',
+                                                       
+                                                        url: "{{ config('services.restapi_url') }}/autocomplete/cities",
                                                         data: { q: query },
                                                         success: function (data) {
                                                             if (data.length === 0) {
@@ -663,8 +664,8 @@ https://www.tooplate.com/view/2095-level
                 var formData = $(this).serialize();
 
                 $.ajax({
-                    url: '{{ route("check.flights") }}', // use a named route or URL
-                    method: 'GET',
+                    url: "{{ config('services.restapi_url') }}/flight-check",
+                    method: 'POST',
                     data: formData,
                     success: function (response) {
                         $('#responseMessage').html('<div class="alert alert-success">Flights found!</div>');
