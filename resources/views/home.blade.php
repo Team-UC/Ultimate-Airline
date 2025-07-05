@@ -198,6 +198,24 @@ https://www.tooplate.com/view/2095-level
                 </div>
             </div>
         </div>
+
+
+        <p>Please wait while we fetch your results...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{-- toggling chat Menu --}}
+<div class="chat-container">
+    <div class="chat-button" onclick="toggleChatMenu()">Chat Here !</div>
+    <div class="chat-icons" id="chatIcons">
+        {{-- will be replaced to relavant links once reviewed --}}
+        <a href="https://wa.me/+919330795119" class="icon whatsapp" title="WhatsApp"></a> 
+        <a href="#" class="icon x" title="X.com"></a>
+        <a href="#" class="icon facebook" title="Facebook"></a>
+        <a href="#" class="icon instagram" title="Instagram"></a>
+
     </div>
     <!-- Bootstrap Loading Modal -->
     <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
