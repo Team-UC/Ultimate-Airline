@@ -5,10 +5,9 @@ use App\Http\Controllers\FlightController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Middleware\isAdmin;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-      return view('home');
-});
+Route::get('/', [HomeController::class, 'home']);
 
 Route::get('/about', function () {
       return view('about');
