@@ -1,52 +1,54 @@
 .site-name {
-        font-size: 1.5em;
-        font-weight: bold;
-        color: #333;
-        margin-left: 10px;
-    }
-    #cityResults {
-        max-height: 300px;
-        overflow-y: auto;
-        z-index: 1050;
-    }
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    margin-left: 10px;
+}
 
-    .city-result-item {
-        padding: 10px;
-        border-bottom: 1px solid #eee;
-        cursor: pointer;
-    }
+#cityResults {
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1050;
+}
 
-    .city-result-item:hover {
-        background-color: #f8f9fa;
-    }
+.city-result-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
 
-    .city-name {
-        font-weight: bold;
-    }
+.city-result-item:hover {
+    background-color: #f8f9fa;
+}
 
-    .iata-code {
-        float: right;
-        font-weight: bold;
-        color: #333;
-    }
+.city-name {
+    font-weight: bold;
+}
 
-    .airport-name {
-        font-size: 0.9em;
-        color: #777;
-        margin-top: 2px;
-    }
+.iata-code {
+    float: right;
+    font-weight: bold;
+    color: #333;
+}
 
-    .clearfix::after {
-        content: "";
-        display: table;
-        clear: both;
-    }
+.airport-name {
+    font-size: 0.9em;
+    color: #777;
+    margin-top: 2px;
+}
 
-    #loadingModal {
-        z-index: 1200 !important; /* Ensure it appears above other content */
-    }
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
 
-    .tm-bg-video {
+#loadingModal {
+    z-index: 1200 !important;
+    /* Ensure it appears above other content */
+}
+
+.tm-bg-video {
     position: relative;
     overflow: hidden;
     width: 100%;
@@ -85,6 +87,7 @@
 .tm-bg-video .overlay i:hover {
     opacity: 1;
 }
+
 /*floating chat button styling*/
 .chat-container {
     position: fixed;
@@ -96,7 +99,7 @@
 .chat-button {
     position: relative;
     left: 5px;
-    background:linear-gradient(45deg,#dcb909,#bc5f70,#1b31a0);
+    background: linear-gradient(45deg, #dcb909, #bc5f70, #1b31a0);
     color: white;
     border-radius: 50%;
     width: 60px;
@@ -158,9 +161,10 @@
 
 /* Responsive spacing and layout for content inside video section */
 @media (max-width: 768px) {
-    .navbar-title{
+    .navbar-title {
         font-size: 0.5em;
     }
+
     .tm-media-container {
         padding: 1rem;
     }
@@ -189,4 +193,3 @@
         font-size: 3rem;
     }
 }
-
