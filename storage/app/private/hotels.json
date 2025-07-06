@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Paris",
+    "country": "France",
+    "image": "img/cities/paris.jpg"
+  },
+  {
+    "name": "Tokyo",
+    "country": "Japan",
+    "image": "img/cities/tokyo.jpg"
+  },
+  {
+    "name": "New York",
+    "country": "USA",
+    "image": "img/cities/newyork.jpg"
+  },
+  {
+    "name": "Rome",
+    "country": "Italy",
+    "image": "img/cities/rome.jpg"
+  },
+  {
+    "name": "Barcelona",
+    "country": "Spain",
+    "image": "img/cities/barcelona.jpg"
+  },
+  {
+    "name": "London",
+    "country": "UK",
+    "image": "img/cities/london.jpg"
+  },
+  {
+    "name": "Dubai",
+    "country": "UAE",
+    "image": "img/cities/dubai.jpg"
+  },
+  {
+    "name": "Istanbul",
+    "country": "Turkey",
+    "image": "img/cities/istanbul.jpg"
+  },
+  {
+    "name": "Bangkok",
+    "country": "Thailand",
+    "image": "img/cities/bangkok.jpg"
+  },
+  {
+    "name": "Singapore",
+    "country": "Singapore",
+    "image": "img/cities/singapore.jpg"
+  },
+  {
+    "name": "Sydney",
+    "country": "Australia",
+    "image": "img/cities/sydney.jpg"
+  },
+  {
+    "name": "Cairo",
+    "country": "Egypt",
+    "image": "img/cities/cairo.jpg"
+  },
+  {
+    "name": "Cape Town",
+    "country": "South Africa",
+    "image": "img/cities/capetown.jpg"
+  },
+  {
+    "name": "San Francisco",
+    "country": "USA",
+    "image": "img/cities/sanfrancisco.jpg"
+  }
+]
