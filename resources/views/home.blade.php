@@ -200,7 +200,7 @@ https://www.tooplate.com/view/2095-level
         </div>
 
 
-        <p>Please wait while we fetch your results...</p>
+        <!-- <p>Please wait while we fetch your results...</p> -->
       </div>
     </div>
   </div>
@@ -261,7 +261,7 @@ https://www.tooplate.com/view/2095-level
             </div>
         </div>
     </div>
-
+    </div>  </div> 
     <div class="tm-section tm-position-relative">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"
             class="tm-section-down-arrow">
@@ -387,7 +387,8 @@ https://www.tooplate.com/view/2095-level
             </div>
         </div>
     </div>
-
+    
+ 
     <!-- Hotels -->
     @include('hotels', ['cities' => $data])
 
@@ -455,7 +456,7 @@ https://www.tooplate.com/view/2095-level
             </div>
         </div>
     </div>
-
+                            
     <div class="tm-section tm-section-pad tm-bg-img tm-position-relative" id="tm-section-6">
         <div class="container ie-h-align-center-fix">
             <div class="row">
