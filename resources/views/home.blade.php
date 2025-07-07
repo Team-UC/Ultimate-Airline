@@ -45,76 +45,90 @@ https://www.tooplate.com/view/2095-level
 
                                 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
                                 
-                                <script>
-                                    setupCityAutocomplete('inputCity1');
-                                    setupCityAutocomplete('inputCity2');
+                               <script>
+                                setupCityAutocomplete('inputCity1');
+                                setupCityAutocomplete('inputCity2');
 
-                                    function setupCityAutocomplete(inputId) {
-                                        const $input = $('#' + inputId);
-                                        const $results = $(
-                                                '<div class="dropdown-menu show w-100 city-results" style="display: none; position: absolute; z-index: 1050;"></div>'
-                                                )
-                                            .insertAfter($input)
-                                            .attr('id', inputId + '_results');
+                                function setupCityAutocomplete(inputId) {
+                                    const defaultCities = [
+                                        { city: "Kolkata", country: "India", airport: "Netaji Subhas Chandra Bose Intl", value: "CCU" },
+                                        { city: "Delhi", country: "India", airport: "Indira Gandhi Intl", value: "DEL" },
+                                        { city: "Kathmandu", country: "Nepal", airport: "Tribhuvan Intl", value: "KTM" },
+                                        { city: "Pokhara", country: "Nepal", airport: "Pokhara Intl", value: "PKR" },
+                                        { city: "Bagdogra", country: "India", airport: "Bagdogra Airport", value: "IXB" }
+                                    ];
 
-                                        let currentRequest = null; // Store the last AJAX request
+                                    const $input = $('#' + inputId);
+                                    const $results = $('<div class="dropdown-menu show w-100 city-results" style="display: none; position: absolute; z-index: 1050;"></div>')
+                                        .insertAfter($input)
+                                        .attr('id', inputId + '_results');
 
-                                        $input.on('input', function() {
-                                            const query = $input.val();
-                                            if (query.length < 2) {
-                                                $results.hide();
-                                                return;
-                                            }
+                                    let currentRequest = null;
 
-                                            // Abort previous request if still ongoing
-                                            if (currentRequest) {
-                                                currentRequest.abort();
-                                            }
+                                    $input.on('input', function () {
+                                        const query = $input.val().trim().toLowerCase();
 
-                                            currentRequest = $.ajax({
+                                        // If input is short, show default cities
+                                        if (query.length < 2) {
+                                            const filteredDefaults = defaultCities.filter(item =>
+                                                item.city.toLowerCase().includes(query) ||
+                                                item.country.toLowerCase().includes(query) ||
+                                                item.airport.toLowerCase().includes(query) ||
+                                                item.value.toLowerCase().includes(query)
+                                            );
 
-                                                url: "{{ config('services.restapi_url') }}/autocomplete/cities",
-                                                data: {
-                                                    q: query
-                                                },
-                                                success: function(data) {
-                                                    if (data.length === 0) {
-                                                        $results.hide();
-                                                        return;
-                                                    }
+                                            renderResults(filteredDefaults);
+                                            return;
+                                        }
 
-                                                    let html = '';
-                                                    data.forEach(item => {
-                                                        html += `
-                                                                    <div class="city-result-item clearfix p-2" data-label="${item.city}, ${item.country} – ${item.airport} (${item.value})">
-                                                                        <div class="city-name">${item.city}, ${item.country}<span class="iata-code float-end">${item.value}</span></div>
-                                                                        <div class="airport-name text-muted">${item.airport}</div>
-                                                                    </div>
-                                                                `;
-                                                    });
+                                        // Abort previous AJAX if needed
+                                        if (currentRequest) {
+                                            currentRequest.abort();
+                                        }
 
-                                                    $results.html(html).show();
-                                                },
-                                                error: function(xhr, status) {
-                                                    if (status !== 'abort') {
-                                                        console.error('City autocomplete failed:', status);
-                                                    }
+                                        currentRequest = $.ajax({
+                                            url: "{{ config('services.restapi_url') }}/autocomplete/cities",
+                                            data: { q: query },
+                                            success: function (data) {
+                                                if (data.length === 0) {
+                                                    $results.hide();
+                                                    return;
                                                 }
-                                            });
+                                                renderResults(data);
+                                            },
+                                            error: function (xhr, status) {
+                                                if (status !== 'abort') {
+                                                    console.error('City autocomplete failed:', status);
+                                                }
+                                            }
                                         });
+                                    });
 
-                                        // On select
-                                        $(document).on('click', '#' + inputId + '_results .city-result-item', function() {
-                                            const selectedLabel = $(this).data('label');
-                                            $input.val(selectedLabel);
-                                            $results.hide();
+                                    function renderResults(data) {
+                                        let html = '';
+                                        data.forEach(item => {
+                                            html += `
+                                                <div class="city-result-item clearfix p-2" data-label="${item.city}, ${item.country} – ${item.airport} (${item.value})">
+                                                    <div class="city-name">${item.city}, ${item.country}<span class="iata-code float-end">${item.value}</span></div>
+                                                    <div class="airport-name text-muted">${item.airport}</div>
+                                                </div>`;
                                         });
-
-                                        $input.on('blur', function() {
-                                            setTimeout(() => $results.hide(), 200);
-                                        });
+                                        $results.html(html).show();
                                     }
-                                </script>
+
+                                    // On select
+                                    $(document).on('click', '#' + inputId + '_results .city-result-item', function () {
+                                        const selectedLabel = $(this).data('label');
+                                        $input.val(selectedLabel);
+                                        $results.hide();
+                                    });
+
+                                    $input.on('blur', function () {
+                                        setTimeout(() => $results.hide(), 200);
+                                    });
+                                }
+                            </script>
+
 
 
 
@@ -179,8 +193,13 @@ https://www.tooplate.com/view/2095-level
                                             <i class="fa fa-2x fa-bed tm-form-element-icon"></i>
                                         </div> -->
                                 <div class="form-group tm-form-element tm-form-element-2">
-                                    <button type="submit" class="btn btn-primary tm-btn-search">Check
-                                        Availability</button>
+                                    <!-- <a href="{{ route('flight.search', ['from' => 1, 'to' => 1, 'date' => 2, 'id' =>3]) }}">
+                                        Book Now
+                                    </a> -->
+                                    <button  type="submit" class="btn btn-primary tm-btn-search">Book
+                                        Now</button>
+                                    <!-- <button type="submit" class="btn btn-primary tm-btn-search">Check
+                                        Availability</button> -->
                                 </div>
                             </div>
                             <div class="form-row clearfix pl-2 pr-2 tm-fx-col-xs">
@@ -189,6 +208,29 @@ https://www.tooplate.com/view/2095-level
                                     class="ie-10-ml-auto ml-auto mt-1 tm-font-semibold tm-color-primary">Need Help?</a>
                             </div>
                             <div id="responseMessage" class="mt-3"></div>
+                            <button type="button" onclick="redirectToSearch()" class="btn btn-primary tm-btn-search">Book Now</button>
+
+                                        <script>
+                                            function redirectToSearch() {
+                                                const from = document.getElementById('inputCity1').value.trim();
+                                                const to = document.getElementById('inputCity2').value.trim();
+                                                const date = document.getElementById('inputCheckOut').value;
+                                                const uuid = self.crypto.randomUUID(); // Or use from backend if needed
+
+                                                if (!from || !to || !date) {
+                                                    alert("Please fill all fields");
+                                                    return;
+                                                }
+
+                                                // Format date like Jul-8-2025
+                                                const options = { month: 'short', day: 'numeric', year: 'numeric' };
+                                                const formattedDate = new Date(date).toLocaleDateString('en-US', options).replace(/ /g, '-');
+
+                                                // Build URL
+                                                const url = `/search/flight-tickets-from-${from}-to-${to}-${formattedDate}/${uuid}`;
+                                                window.location.href = url;
+                                            }
+                                        </script>
 
                         </form>
 
