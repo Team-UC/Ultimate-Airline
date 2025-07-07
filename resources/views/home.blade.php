@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Sasta Tickets</title>
     <style>
         .site-name {
@@ -110,6 +110,7 @@
             position: relative;
             left: 5px;
             background: linear-gradient(45deg, #dcb909, #bc5f70, #1b31a0);
+
             color: white;
             border-radius: 50%;
             width: 60px;
@@ -119,6 +120,14 @@
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .chat-button:hover {
+            background: linear-gradient(45deg, #1b31a0, #bc5f70, #dcb909);
+            transition: all 0.3s ease-in-out;
+            transform: scale(1.1);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+
         }
 
         .chat-icons {
@@ -483,7 +492,7 @@ https://www.tooplate.com/view/2095-level
 
     {{-- toggling chat Menu --}}
     <div class="chat-container">
-        <div class="chat-button" onclick="toggleChatMenu()">Chat Here !</div>
+        <div class="chat-button" onclick="toggleChatMenu()">Chat</div>
         <div class="chat-icons" id="chatIcons">
             {{-- will be replaced to relavant links once reviewed --}}
             <a href="#" class="icon whatsapp" title="WhatsApp"></a>
@@ -504,7 +513,6 @@ https://www.tooplate.com/view/2095-level
             </div>
         </div>
     </div>
-
     <div class="tm-section tm-position-relative">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"
             class="tm-section-down-arrow">
@@ -695,7 +703,6 @@ https://www.tooplate.com/view/2095-level
             </div>
         </div>
     </div>
-
     <div class="tm-section tm-section-pad tm-bg-img tm-position-relative" id="tm-section-6">
         <div class="container ie-h-align-center-fix">
             <div class="row">
@@ -759,8 +766,7 @@ https://www.tooplate.com/view/2095-level
         `);
                 loadingModal.show(); // Show loading modal
 
-
-                var formData = $(this).serialize();
+                const formData = $(this).serialize();
 
                 $.ajax({
                     url: "{{ config('services.restapi_url') }}/flight-check",
@@ -768,83 +774,16 @@ https://www.tooplate.com/view/2095-level
                     data: formData,
                     success: function(response) {
                         $('#responseMessage').html(
-                            '<div class="alert alert-success">Flights found!</div>');
-                        console.log(response);
-                        const flights = response.data || [];
-                        let html = '';
+                            '<div class="alert alert-success">Flights found successfully.</div>');
 
-                        if (flights.length === 0) {
-                            html =
-                                '<div class="alert alert-warning">No flights available.</div>';
-                        } else {
-                            flights.forEach((flight, i) => {
-                                const segments = flight.itineraries[0].segments;
-                                const dep = segments[0].departure;
-                                const arr = segments[segments.length - 1].arrival;
-                                const eurToNpr = 145; // example fixed conversion rate
-                                const priceNpr = (parseFloat(flight.price.total) *
-                                    eurToNpr).toFixed(2);
-                                const message = `
-                                ✈️ *Flight Offer*
-                                Airline: ${flight.validatingAirlineCodes[0]}
-                                Departure: ${new Date(dep.at).toLocaleString()}
-                                Arrival: ${new Date(arr.at).toLocaleString()}
-                                Duration: ${flight.itineraries[0].duration.replace('PT','')}
-                                Price: ${flight.price.currency} ${flight.price.total} (Approx. NPR ${priceNpr})
-
-                                Reply to confirm booking.
-                                `;
-
-                                html += `
-                               <div class="card mb-3 shadow-sm border-start border-danger border-3 p-3 w-100">
-                                <div class="row align-items-center text-center text-md-start">
-
-                                    <!-- Airline logo and name -->
-                                    <div class="col-md-2 mb-2 mb-md-0 d-flex flex-column align-items-center">
-                                    <img src="https://s1.apideeplink.com/images/airlines/${flight.validatingAirlineCodes[0]}.png" alt="Airline Logo" style="max-height: 40px;">
-                                    <div class="fw-semibold mt-2">${flight.validatingAirlineCodes[0]}</div>
-                                    </div>
-
-                                    <!-- Flight info -->
-                                    <div class="col-md-6">
-                                    <div class="d-flex flex-column flex-md-row justify-content-around align-items-center gap-3">
-                                        <div>
-                                        <div class="fw-bold fs-5">${new Date(dep.at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
-                                        <div>${dep.city || 'Departure'} (${dep.iataCode})</div>
-                                        <div class="text-muted small">${new Date(dep.at).toLocaleDateString()}</div>
-                                        </div>
-                                        <div class="text-center">
-                                        <div class="fw-medium">${flight.itineraries[0].duration.replace('PT','').replace('H',' Hr ').replace('M',' Min')}</div>
-                                        <div class="text-danger mt-1">
-                                            <i class="bi bi-person-walking"></i> 5 Kg &nbsp;
-                                            <i class="bi bi-suitcase"></i> 15 Kg
-                                        </div>
-                                        </div>
-                                        <div>
-                                        <div class="fw-bold fs-5">${new Date(arr.at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
-                                        <div>${arr.city || 'Arrival'} (${arr.iataCode})</div>
-                                        <div class="text-muted small">${new Date(arr.at).toLocaleDateString()}</div>
-                                        </div>
-                                    </div>
-                                    </div>
-
-                                    <!-- Price and CTA -->
-                                    <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                                    <div class="text-danger fw-bold fs-5">NPR ${priceNpr}</div>
-                                    <a href="#" class="btn btn-primary btn-sm mt-1">Book Now</a>
-                                    <a href="https://wa.me/+9779808041246?text=${encodeURIComponent(message)}" class="btn btn-success btn-sm mt-1" target="_blank">Book on WhatsApp</a>
-                                    </div>
-
-                                </div>
-                                </div>
-
-                            `;
-                            });
-                        }
-
-                        $('#flightResults').html(html); // Display inside this container
-
-                        loadingModal.hide(); // Hide loading modal after processing
+                        $.post('/store-flight-data', {
+                            _token: $('meta[name="csrf-token"]').attr('content'),
+                            flights: JSON.stringify(response.data)
+                        }, function() {
+                            loadingModal.hide();
+                            window.location.href =
+                            "/flight-results"; // Redirect to flights page
+                        })
                     },
                     // },
                     error: function(xhr) {
@@ -852,6 +791,8 @@ https://www.tooplate.com/view/2095-level
                             '<div class="alert alert-danger">Something went wrong.</div>');
 
                         loadingModal.hide(); // Hide loading modal on error
+
+
                     }
                 });
             });
@@ -880,7 +821,7 @@ https://www.tooplate.com/view/2095-level
     <script src="slick/slick.min.js"></script> <!-- http://kenwheeler.github.io/slick/ -->
     <script>
         /* Google map
-                                                            ------------------------------------------------*/
+                                                                                                    ------------------------------------------------*/
         var map = '';
         var center;
 
@@ -1011,7 +952,12 @@ https://www.tooplate.com/view/2095-level
             // Update the current year in copyright
             $('.tm-current-year').text(new Date().getFullYear());
         });
+
+        function calculateCenter() {
+            center = map.getCenter();
+        }
     </script>
+
 
 
     </body>
