@@ -958,6 +958,9 @@ https://www.tooplate.com/view/2095-level
         }
     </script>
 
+        function calculateCenter() {
+            center = map.getCenter();
+        }
 
 
     </body>

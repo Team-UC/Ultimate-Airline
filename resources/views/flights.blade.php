@@ -51,6 +51,14 @@
                 const priceNpr = (parseFloat(flight.price.total) * eurToNpr).toFixed(2);
                 const airline = flight.validatingAirlineCodes[0];
 
+                 const originCity = dep.iataCode; // E.g., CCU
+    const destCity = arr.iataCode;   // E.g., DEL
+    const departureDate = new Date(dep.at).toISOString().split('T')[0]; // YYYY-MM-DD
+    const flightId = flight.id || self.crypto.randomUUID(); // or use index as fallback
+
+    const dynamicUrl = `/search/flight-tickets-from-${originCity}-to-${destCity}-${departureDate}/${flightId}`;
+
+
                 html += `
                 <div class="card mb-3 p-3 border border-danger rounded hover:bg-blue-400 hover:text-white transition-colors duration-300">
                     <div class="row align-items-center text-center text-md-start g-3">
@@ -76,7 +84,7 @@
                         </div>
                         <div class="col-md-4 text-md-end">
                             <div class="text-danger fw-bold fs-5 mb-2">NPR ${priceNpr}</div>
-                            <a href="#" class="btn btn-danger btn-sm mb-1 w-75 fw-semibold">BOOK NOW</a>
+                            <a href="${dynamicUrl}" class="btn btn-danger btn-sm mb-1 w-75 fw-semibold">BOOK NOW</a>
                             <a href="https://wa.me/+9779808041246?text=${encodeURIComponent(`✈️ Flight Offer\nAirline: ${airline}\nPrice: NPR ${priceNpr}`)}" target="_blank" class="btn btn-success btn-sm w-75">Book on WhatsApp</a>
                         </div>
                     </div>

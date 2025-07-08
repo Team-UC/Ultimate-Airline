@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\FlightSearchController;
 use App\Http\Middleware\isAdmin;
 use App\Http\Controllers\HomeController;
 
@@ -30,3 +31,6 @@ Route::get('/flight-results', function () {
     $flights = session('flights', []);
     return view('flights', compact('flights'));
 });
+// Route::get('/search/flight-tickets-from-{origin}-to-{destination}-{date}/{id}', [FlightController::class, 'show'])->name('book.flight');
+Route::get('/search/flight-tickets-from-{from}-to-{to}-{date}/{id}', [FlightSearchController::class, 'search'])->name('flight.book');
+
