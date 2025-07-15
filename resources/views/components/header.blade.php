@@ -23,8 +23,9 @@
                 <div class="row">
                     <nav class="navbar navbar-expand-lg narbar-light">
                         <a class="navbar-brand mr-auto" href="{{url('/')}}">
-                            <img src="{{ asset('img/logo.png') }}" alt="Site logo">
-                            Sasta Tickets
+                            <!-- <img src="{{ asset('img/logo.png') }}" alt="Site logo"> -->
+                            <img src="https://ultimatecoder.in/images/logo.png" style="width:50px;" alt="Site logo"> 
+                            Ultimate Airline 
                         </a>
                         <button type="button" id="nav-toggle" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>

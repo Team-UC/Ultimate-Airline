@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sasta Tickets</title>
+    <title>Ultimate Airline</title>
     <link rel="stylesheet" href="css/homepage.css">
     <!--
 
@@ -196,8 +196,7 @@ https://www.tooplate.com/view/2095-level
                                     <!-- <a href="{{ route('flight.search', ['from' => 1, 'to' => 1, 'date' => 2, 'id' =>3]) }}">
                                         Book Now
                                     </a> -->
-                                    <button  type="submit" class="btn btn-primary tm-btn-search">Book
-                                        Now</button>
+                                   
                                     <!-- <button type="submit" class="btn btn-primary tm-btn-search">Check
                                         Availability</button> -->
                                 </div>
@@ -208,7 +207,9 @@ https://www.tooplate.com/view/2095-level
                                     class="ie-10-ml-auto ml-auto mt-1 tm-font-semibold tm-color-primary">Need Help?</a>
                             </div>
                             <div id="responseMessage" class="mt-3"></div>
-                            <button type="button" onclick="redirectToSearch()" class="btn btn-primary tm-btn-search">Book Now</button>
+                             <button  type="submit" class="btn btn-primary tm-btn-search">Book
+                                        Now</button>
+                            <!-- <button type="button" onclick="redirectToSearch()" class="btn btn-primary tm-btn-search">Book Now</button> -->
 
                                         <script>
                                             function redirectToSearch() {
@@ -248,49 +249,9 @@ https://www.tooplate.com/view/2095-level
   </div>
 </div>
 
-{{-- toggling chat Menu --}}
-<div class="chat-container">
-    <div class="chat-button" onclick="toggleChatMenu()">Chat Here !</div>
-    <div class="chat-icons" id="chatIcons">
-        {{-- will be replaced to relavant links once reviewed --}}
-        <a href="https://wa.me/+919330795119" class="icon whatsapp" title="WhatsApp"></a> 
-        <a href="#" class="icon x" title="X.com"></a>
-        <a href="#" class="icon facebook" title="Facebook"></a>
-        <a href="#" class="icon instagram" title="Instagram"></a>
 
-    </div>
-    <!-- Bootstrap Loading Modal -->
-    <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
-        data-bs-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content text-center">
-                <div class="modal-body">
-                    <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 5rem;">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                    <h5 class="modal-title mb-2">Searching for best airfares</h5>
-                    <img src="img/loadingAnimation.gif" alt="Loading Animation" class="img-fluid mb-3"
-                        style="max-width: 100px;">
-                    <div class="mb-2 small" id="searchDetails">
-                        <!-- Dynamic search info goes here -->
-                    </div>
-                    <p>Please wait while we fetch your results...</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{-- toggling chat Menu --}}
-    <div class="chat-container">
-        <div class="chat-button" onclick="toggleChatMenu()">Chat Here !</div>
-        <div class="chat-icons" id="chatIcons">
-            {{-- will be replaced to relavant links once reviewed --}}
-            <a href="#" class="icon whatsapp" title="WhatsApp"></a>
-            <a href="#" class="icon x" title="X.com"></a>
-            <a href="#" class="icon facebook" title="Facebook"></a>
-            <a href="#" class="icon instagram" title="Instagram"></a>
-        </div>
-    </div>
+   
+   
 
     <div class="tm-section-2">
         <div class="container">
@@ -303,7 +264,7 @@ https://www.tooplate.com/view/2095-level
             </div>
         </div>
     </div>
-    </div>  </div> 
+     
     <div class="tm-section tm-position-relative">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"
             class="tm-section-down-arrow">
@@ -429,7 +390,38 @@ https://www.tooplate.com/view/2095-level
             </div>
         </div>
     </div>
-    
+    {{-- toggling chat Menu --}}
+<div class="chat-container">
+    <div class="chat-button" onclick="toggleChatMenu()">Chat Here !</div>
+    <div class="chat-icons" id="chatIcons">
+        {{-- will be replaced to relavant links once reviewed --}}
+        <a href="https://wa.me/+919330795119" class="icon whatsapp" title="WhatsApp"></a> 
+        <a href="#" class="icon x" title="X.com"></a>
+        <a href="#" class="icon facebook" title="Facebook"></a>
+        <a href="#" class="icon instagram" title="Instagram"></a>
+
+    </div>
+    <!-- Bootstrap Loading Modal -->
+    <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+        data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center">
+                <div class="modal-body">
+                    <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 5rem;">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <h5 class="modal-title mb-2">Searching for best airfares</h5>
+                    <img src="img/loadingAnimation.gif" alt="Loading Animation" class="img-fluid mb-3"
+                        style="max-width: 100px;">
+                    <div class="mb-2 small" id="searchDetails">
+                        <!-- Dynamic search info goes here -->
+                    </div>
+                    <p>Please wait while we fetch your results...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
  
     <!-- Hotels -->
     @include('hotels', ['cities' => $data])
@@ -595,7 +587,7 @@ https://www.tooplate.com/view/2095-level
                                     Duration: ${flight.itineraries[0].duration.replace('PT','')}
                                     Price: ${flight.price.currency} ${flight.price.total} (Approx. NPR ${priceNpr})
 
-                                    Reply to confirm booking.
+                                    Please Book this Flight for Me
                                 `;
 
                                 html += `
