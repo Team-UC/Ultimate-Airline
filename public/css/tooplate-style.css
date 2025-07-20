@@ -62,6 +62,7 @@ p {
 
 .navbar { 
 	width: 100%; 
+	display: flex;
 	padding-top: 0;
 	padding-bottom: 0;
 }
@@ -109,7 +110,7 @@ p {
     padding: 0;
     z-index: 10000;
     transition: all 0.2s ease-in-out;
-    height: 119px;
+    height: 119	px;
     background: white;
 }
 

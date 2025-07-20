@@ -271,6 +271,7 @@ https://www.tooplate.com/view/2095-level
             <polygon fill="#ee5057" points="0,0  0,0  50,60"></polygon>
         </svg>
      <div class="container my-5">
+        <!-- Carousel Code by ABdul Samad 20/07/2025-->
   <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
    <style>
         /* Custom styles to complement Bootstrap */
