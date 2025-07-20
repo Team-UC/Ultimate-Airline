@@ -268,9 +268,234 @@ https://www.tooplate.com/view/2095-level
     <div class="tm-section tm-position-relative">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"
             class="tm-section-down-arrow">
-            <polygon fill="#ee5057" points="0,0  100,0  50,60"></polygon>
+            <polygon fill="#ee5057" points="0,0  0,0  50,60"></polygon>
         </svg>
-        <div class="container tm-pt-5 tm-pb-4">
+     <div class="container my-5">
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+   <style>
+        /* Custom styles to complement Bootstrap */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        .slider-container {
+            padding: 0 rem 0;
+            background-color: #f0f2f5;
+        }
+
+        .destination-slider-wrapper {
+            position: relative;
+        }
+        
+        .destination-slider {
+            display: flex;
+            gap: 1.5rem;
+            padding: 0.25rem;
+            overflow-x: scroll;
+            
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .destination-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .destination-card {
+            flex: 0 0 270px;
+            border: none;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+            border-radius: 1.5rem;
+        }
+
+        .destination-card:hover {
+            transform: scale(1.05) translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            z-index: 10;
+        }
+        
+        .card-img-overlay::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 50%);
+            border-radius: 0.5rem;
+        }
+        
+        .card-img-overlay .content-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .duration-badge {
+            background-color: #FFD700;
+            color: #333;
+            font-weight: bold;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 20;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .slider-btn:hover {
+            background-color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        #prev-btn { left: -20px; }
+        #next-btn { right: -20px; }
+        
+        @media (max-width: 768px) {
+            .destination-card { flex-basis: 240px; }
+            #prev-btn { left: -10px; }
+            #next-btn { right: -10px; }
+        }
+    </style>
+</head>
+    <div class="slider-container">
+        <div class="container destination-slider-wrapper">
+            <button id="prev-btn" class="slider-btn">&lt;</button>
+            <div class="destination-slider" id="destinationSlider">
+                <!-- Cards will be dynamically populated by JS -->
+            </div>
+            <button id="next-btn" class="slider-btn">&gt;</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.getElementById('destinationSlider');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            let scrollAmount = 0;
+            let isScrolling = false;
+            let totalCardWidth = 0;
+
+            const destinations = [
+                { name: 'Vietnam', duration: '4N 5D', price: 'NPR 38,920', img: '{{ asset("img/cities/veitnam.jpeg") }}', flag: 'https://flagcdn.com/w20/vn.png' },
+                { name: 'Bangkok', duration: '3N 4D', price: 'NPR 18,048', img: '{{ asset("img/cities/bangkok.jpeg") }}', flag: 'https://flagcdn.com/w20/th.png' },
+                { name: 'Dubai', duration: '4N 5D', price: 'NPR 34,520', img: '{{ asset("img/cities/dubai.jpg") }}', flag: 'https://flagcdn.com/w20/ae.png' },
+                { name: 'Kuala Lumpur', duration: '5N 6D', price: 'NPR 24,233', img: '{{ asset("img/cities/cairo.jpg") }}', flag: 'https://flagcdn.com/w20/my.png' },
+                { name: 'Delhi', duration: '2N 3D', price: 'NPR 11,103', img: '{{ asset("img/cities/delhi.jpeg") }}', flag: 'https://flagcdn.com/w20/in.png' },
+                { name: 'Paris', duration: '6N 7D', price: 'NPR 85,500', img: '{{ asset("img/cities/paris.jpg") }}', flag: 'https://flagcdn.com/w20/fr.png' },
+            ];
+
+            function createCard(dest) {
+                return `
+                <div class="card text-white destination-card" data-destination="${dest.name}" data-duration="${dest.duration}">
+                    <img src="${dest.img}" class="card-img h-100" alt="${dest.name}" style="object-fit: cover;">
+                    <div class="card-img-overlay d-flex flex-column justify-content-end">
+                        <div class="content-container">
+                            <span class="duration-badge">${dest.duration}</span>
+                            <h5 class="card-title fs-4 d-flex align-items-center gap-2">
+                                <img src="${dest.flag}" alt="${dest.name} Flag"> ${dest.name}
+                            </h5>
+                            <p class="card-text fw-bold">${dest.price}</p>
+                        </div>
+                    </div>
+                </div>`;
+            }
+
+            function setupLoop() {
+                slider.innerHTML = '';
+                const allCardsHtml = destinations.map(createCard).join('');
+                slider.innerHTML = allCardsHtml + allCardsHtml; // Original + Clones
+                
+                const cardGap = parseFloat(window.getComputedStyle(slider).gap) || 20;
+                totalCardWidth = (slider.querySelector('.destination-card').offsetWidth + cardGap) * destinations.length;
+            }
+
+            function calculateScrollAmount() {
+                const firstCard = slider.querySelector('.destination-card');
+                if (firstCard) {
+                    const cardGap = parseFloat(window.getComputedStyle(slider).gap) || 20;
+                    scrollAmount = firstCard.offsetWidth + cardGap;
+                }
+            }
+
+            function easeInOutQuad(t, b, c, d) {
+                t /= d / 2;
+                if (t < 1) return c / 2 * t * t + b;
+                t--;
+                return -c / 2 * (t * (t - 2) - 1) + b;
+            }
+
+            function smoothScrollTo(element, to, duration) {
+                if (isScrolling) return;
+                isScrolling = true;
+                const start = element.scrollLeft;
+                const change = to - start;
+                let startTime = null;
+
+                function animateScroll(currentTime) {
+                    if (startTime === null) startTime = currentTime;
+                    const timeElapsed = currentTime - startTime;
+                    let run = easeInOutQuad(timeElapsed, start, change, duration);
+                    element.scrollLeft = run;
+                    if (timeElapsed < duration) {
+                        requestAnimationFrame(animateScroll);
+                    } else {
+                        element.scrollLeft = to;
+                        isScrolling = false;
+                        if (element.scrollLeft >= totalCardWidth) {
+                             element.scrollLeft -= totalCardWidth;
+                        }
+                    }
+                }
+                requestAnimationFrame(animateScroll);
+            }
+
+            nextBtn.addEventListener('click', function() {
+                if (slider.scrollLeft >= totalCardWidth) {
+                    slider.scrollLeft -= totalCardWidth;
+                }
+                const targetScroll = slider.scrollLeft + scrollAmount;
+                smoothScrollTo(slider, targetScroll, 500);
+            });
+
+            prevBtn.addEventListener('click', function() {
+                if (slider.scrollLeft <= 0) {
+                    slider.scrollLeft += totalCardWidth;
+                }
+                const targetScroll = slider.scrollLeft - scrollAmount;
+                smoothScrollTo(slider, targetScroll, 500);
+            });
+            
+            // Initial Setup
+            setupLoop();
+            calculateScrollAmount();
+            window.addEventListener('resize', () => {
+                setupLoop();
+                calculateScrollAmount();
+            });
+        });
+    </script>
+    <!-- Bootstrap JS Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+        <div class="container tm-pt-5 tm-pb-4"> 
             <div class="row text-center">
                 <article class="col-sm-12 col-md-4 col-lg-4 col-xl-4 tm-article">
                     <i class="fa tm-fa-6x fa-legal tm-color-primary tm-margin-b-20"></i>
