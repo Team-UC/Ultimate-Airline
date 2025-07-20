@@ -615,6 +615,7 @@ https://www.tooplate.com/view/2095-level
                         </div>-->
             </div>
         </div>
+    </div>     </div>
     </div>
     {{-- toggling chat Menu --}}
 <div class="chat-container">
