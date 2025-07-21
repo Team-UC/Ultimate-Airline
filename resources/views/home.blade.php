@@ -202,7 +202,7 @@ https://www.tooplate.com/view/2095-level
                                 </div>
                             </div>
                             <div class="form-row clearfix pl-2 pr-2 tm-fx-col-xs">
-                                <p class="tm-margin-b-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                <!-- <p class="tm-margin-b-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
                                 <a href="#"
                                     class="ie-10-ml-auto ml-auto mt-1 tm-font-semibold tm-color-primary">Need Help?</a>
                             </div>
