@@ -126,7 +126,7 @@
                 <div class="social-icons">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <div class="contact-info d-flex">
@@ -162,7 +162,7 @@
                         </li> -->
                     </ul>
                     <div class="auth-buttons d-flex align-items-center">
-                        <a href="#" class="btn btn-login"><i class="fa-solid fa-right-to-bracket me-1"></i> Log In</a>
+                        <a href="{{ route('login') }}" class="btn btn-login"><i class="fa-solid fa-right-to-bracket me-1"></i> Log In</a>
                         <a href="#" class="btn btn-signup ms-2"><i class="fa-solid fa-user-plus me-1"></i> Sign Up</a>
                     </div>
                 </div>
