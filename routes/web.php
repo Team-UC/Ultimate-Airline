@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\FlightSearchController;
 use App\Http\Middleware\isAdmin;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\LoginController;
 
 Route::get('/', [HomeController::class, 'home']);
 
@@ -25,7 +26,10 @@ Route::get('/privacy-policy', function () {
 Route::get('/search/flight-tickets-from-{from}-to-{to}-{date}/{id}', [FlightSearchController::class, 'search'])
     ->name('flight.search');
 
+Route::get('/login', function () {
+    return view('login'); 
+})->name('login'); 
 
-
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login.submit');
 
 
