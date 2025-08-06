@@ -8,6 +8,7 @@ use App\Http\Controllers\FlightSearchController;
 use App\Http\Middleware\isAdmin;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Http\Request;
 
 Route::get('/', [HomeController::class, 'home']);
 
@@ -18,6 +19,21 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('contact');
 });
+
+// Route::get('/hotels', function () {
+//     return view('hotels');
+// });
+Route::get('/hotels', function (Request $request) {
+    $cityFromUrl = $request->query('city'); // gets ?city= from URL
+    $cities = [
+        ['name' => 'Dubai', 'country' => 'UAE', 'image' => 'dubai.jpg'],
+        ['name' => 'Paris', 'country' => 'France', 'image' => 'paris.jpg'],
+        ['name' => 'New York', 'country' => 'USA', 'image' => 'newyork.jpg'],
+    ];
+
+    return view('hotels', compact('cities', 'cityFromUrl'));
+});
+
 
 Route::get('/privacy-policy', function () {
     return view('privacy-policy');

@@ -405,7 +405,9 @@ https://www.tooplate.com/view/2095-level
 
             function createCard(dest) {
                 return `
-                <div class="card text-white destination-card" data-destination="${dest.name}" data-duration="${dest.duration}">
+                
+                 <div class="card text-white destination-card" data-destination="${dest.name}" data-duration="${dest.duration}">
+                  <a href="hotels?city=${dest.name}" class="destination-card-link" target="_blank">
                     <img src="${dest.img}" class="card-img h-100" alt="${dest.name}" style="object-fit: cover;">
                     <div class="card-img-overlay d-flex flex-column justify-content-end">
                         <div class="content-container">
@@ -416,7 +418,9 @@ https://www.tooplate.com/view/2095-level
                             <p class="card-text fw-bold">${dest.price}</p>
                         </div>
                     </div>
-                </div>`;
+                </div>
+                </a>
+                `;
             }
 
             function setupLoop() {
