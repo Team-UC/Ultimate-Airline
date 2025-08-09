@@ -24,7 +24,9 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-image: url('https://images.unsplash.com/photo-1500930287589-c4f419f40d24?q=80&w=2070&auto=format&fit=crop');
+            background-color: #1a202c; /* Equivalent to bg-gray-900 */
+            font-weight: 400;
+            /*background-image: url('https://images.unsplash.com/photo-1500930287589-c4f419f40d24?q=80&w=2070&auto=format&fit=crop');*/
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -41,7 +43,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             background-color: rgba(17, 24, 39, 0.85); /* Dark background with opacity */
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 1.5rem; /* More rounded corners */
+            border-radius: 2rem; /* More rounded corners */
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
         .form-control {
@@ -102,7 +104,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                      </form>
 
                     <div class="text-center mt-4">
-                        <p class="text-white-50">Don't have an account? <a href="#" class="text-primary fw-bold text-decoration-none">Sign Up</a></p>
+                        <p class="text-white-50">Don't have an account? <a href="{{ route('signup.handle') }}" class="text-primary fw-bold text-decoration-none">Sign Up</a></p>
                     </div>
                 </div>
             </div>
