@@ -49,3 +49,7 @@ Route::get('/login', function () {
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login.submit');
 
 
+Route::get('/signup', [AuthController::class, 'showSignupForm'])->name('signup.form');
+
+Route::post('/signup', [AuthController::class, 'handleSignup'])->name('signup.handle');
+
