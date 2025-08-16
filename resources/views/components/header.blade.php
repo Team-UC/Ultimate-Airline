@@ -163,7 +163,7 @@
                     </ul>
                     <div class="auth-buttons d-flex align-items-center">
                         <a href="{{ route('login') }}" class="btn btn-login"><i class="fa-solid fa-right-to-bracket me-1"></i> Log In</a>
-                        <a href="#" class="btn btn-signup ms-2"><i class="fa-solid fa-user-plus me-1"></i> Sign Up</a>
+                        <a href="{{ route('signup.handle') }}" class="btn btn-signup ms-2"><i class="fa-solid fa-user-plus me-1"></i> Sign Up</a>
                     </div>
                 </div>
             </div>
