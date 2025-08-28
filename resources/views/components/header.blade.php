@@ -145,21 +145,6 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mx-auto">
-                        <!-- <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Tours</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Destinations</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
-                        </li> -->
                     </ul>
                     <div class="auth-buttons d-flex align-items-center">
                         <a href="{{ route('login') }}" class="btn btn-login"><i class="fa-solid fa-right-to-bracket me-1"></i> Log In</a>
